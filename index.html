@@ -4,36 +4,229 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Final Assessment</title>
+	<title>Image Filter Editor</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+			line-height: 1.6;
+			padding: 20px;
+			background-color: #f5f5f5;
+			min-height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.container {
+			width: 100%;
+			max-width: 1200px;
+		}
+
+		.editor-wrapper {
+			display: flex;
+			gap: 20px;
+			align-items: flex-start;
+			justify-content: center;
+		}
+
+		.form-section {
+			background: white;
+			padding: 30px;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			width: 400px;
+			height: 400px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+		}
+
+		.form-section h1 {
+			font-size: 1.5rem;
+			margin-bottom: 20px;
+			color: #333;
+		}
+
+		form {
+			display: flex;
+			flex-direction: column;
+			gap: 20px;
+		}
+
+		label {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+	label span {
+		text-align: left;
+		font-weight: 500;
+		color: #555;
+		font-size: 0.95rem;
+	}
+
+		input[type="range"] {
+			width: 100%;
+			height: 6px;
+			background: #ddd;
+			border-radius: 3px;
+			outline: none;
+			cursor: pointer;
+		}
+
+		input[type="range"]::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+			width: 18px;
+			height: 18px;
+			background: #007bff;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+
+		input[type="range"]::-moz-range-thumb {
+			width: 18px;
+			height: 18px;
+			background: #007bff;
+			border-radius: 50%;
+			cursor: pointer;
+			border: none;
+		}
+
+		input[type="range"]:focus {
+			outline: 2px solid #007bff;
+			outline-offset: 2px;
+		}
+
+		.image-section {
+			background: white;
+			padding: 0;
+			border-radius: 8px;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+			overflow: hidden;
+			width: 400px;
+			height: 400px;
+		}
+
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		@media screen and (max-width: 800px) {
+			body {
+				padding: 15px;
+			}
+
+			.editor-wrapper {
+				flex-direction: column;
+				align-items: center;
+			}
+
+			.image-section {
+				order: -1;
+				width: 100%;
+				max-width: 500px;
+				height: auto;
+				aspect-ratio: 1 / 1;
+			}
+
+			.form-section {
+				width: 100%;
+				max-width: 500px;
+				height: auto;
+			}
+
+			label {
+				flex-direction: row;
+				align-items: center;
+				gap: 15px;
+			}
+
+			label span {
+				text-align: right;
+				min-width: 100px;
+				flex-shrink: 0;
+			}
+
+			input[type="range"] {
+				flex: 1;
+			}
+		}
+
+		@media screen and (max-width: 480px) {
+			body {
+				padding: 10px;
+			}
+
+			.form-section {
+				padding: 20px;
+			}
+
+			.form-section h1 {
+				font-size: 1.25rem;
+				text-align: center;
+				margin-bottom: 15px;
+			}
+
+			label {
+				flex-direction: column;
+				align-items: stretch;
+			}
+
+			label span {
+				text-align: center;
+				min-width: auto;
+			}
+
+			input[type="range"] {
+				width: 100%;
+			}
+		}
+	</style>
 </head>
 <body>
 	
-	<div class="container">
-		<div>
-			<form>
-				<label>
-					<span>Hue Rotate</span>
-					<input id="hue" type="range" min="0" max="360" value="0" />
-				</label>
-				
-				<label>
-					<span>Blur</span>
-					<input id="blur" type="range" min="0" max="40" value="0" />
-				</label>
+	<main class="container">
+		<div class="editor-wrapper">
+			<section class="form-section" aria-label="Image filter controls">
+				<h1>Image Editor</h1>
+				<form>
+					<label for="hue">
+						<span>Hue Rotate</span>
+						<input id="hue" type="range" min="0" max="360" value="0" aria-valuemin="0" aria-valuemax="360" aria-valuenow="0" aria-label="Adjust hue rotation from 0 to 360 degrees" />
+					</label>
+					
+					<label for="blur">
+						<span>Blur</span>
+						<input id="blur" type="range" min="0" max="40" value="0" aria-valuemin="0" aria-valuemax="40" aria-valuenow="0" aria-label="Adjust blur from 0 to 40 pixels" />
+					</label>
 
-				<label>
-					<span>Contrast</span>
-					<input id="contrast" type="range" min="0" max="400" value="50" />
-				</label>
+					<label for="contrast">
+						<span>Contrast</span>
+						<input id="contrast" type="range" min="0" max="400" value="50" aria-valuemin="0" aria-valuemax="400" aria-valuenow="50" aria-label="Adjust contrast from 0 to 400 percent" />
+					</label>
 
-				<label>
-					<span>Saturation</span>
-					<input id="saturation" type="range" min="0" max="200" value="100" />
-				</label>
-			</form>
-			<img src="./dali.png" width="400" height="400"/>
+					<label for="saturation">
+						<span>Saturation</span>
+						<input id="saturation" type="range" min="0" max="200" value="100" aria-valuemin="0" aria-valuemax="200" aria-valuenow="100" aria-label="Adjust saturation from 0 to 200 percent" />
+					</label>
+				</form>
+			</section>
+			<section class="image-section" aria-label="Preview image">
+				<img src="./dali.png" width="400" height="400" alt="Surrealist painting by Salvador Dali with applied filters"/>
+			</section>
 		</div>
-	</div>
+	</main>
 
 
 	<script>
