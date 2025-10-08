@@ -54,6 +54,14 @@
 			color: #333;
 		}
 
+		main h1 {
+			position: absolute;
+			left: -10000px;
+			width: 1px;
+			height: 1px;
+			overflow: hidden;
+		}
+
 		form {
 			display: flex;
 			flex-direction: column;
@@ -207,6 +215,7 @@
 <body>
 	
 	<main class="container">
+		<h1>Image Filter Editor</h1>
 		<div class="editor-wrapper">
 			<section class="form-section" aria-label="Image filter controls">
 				<form>
